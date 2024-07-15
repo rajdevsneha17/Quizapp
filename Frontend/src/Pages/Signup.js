@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 
-
 export default function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
