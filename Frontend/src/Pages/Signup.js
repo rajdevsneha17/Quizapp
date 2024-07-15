@@ -1,11 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import { useState } from "react";
 
 export default function Signup() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -14,7 +16,10 @@ export default function Signup() {
   } = useForm();
 
   const submitHandler = (data) => {
+    
+    setLoading(true);
     axios.post("https://quizapp-g98o.onrender.com/signup", data).then((res) => {
+      setLoading(false);
       console.log(res);
       if (res.data === "exist") {
         toast.error("You already have an account");
@@ -35,12 +40,12 @@ export default function Signup() {
         }
       }
     }).catch((error) => {
+      setLoading(false);
       console.error("There was an error during signup!", error);
       toast.error("Signup failed. Please try again.");
     });
   };
 
- 
   return (
 
     <div className="min-h-screen flex flex-col">
@@ -112,13 +117,14 @@ export default function Signup() {
             )}
           </div>
           <div className="form-control flex justify-center items-center">
-            <button
-              type="submit"
-              className="w-full py-2 bg-slate-800 text-gray-200 rounded-md hover:bg-slate-700 transition duration-300"
-            >
-              Signup
-            </button>
-          </div>
+              <button
+                type="submit"
+                className="w-full py-2 bg-slate-800 text-gray-200 rounded-md hover:bg-slate-700 transition duration-300"
+                disabled={loading}
+              >
+                {loading ? 'Loading...' : 'Signup'}
+              </button>
+            </div>
           <div className="text-gray-900 flex justify-center items-center mt-5">
             Already have an account? <Link to="/login"><p className="text-slate-800 underline ml-2">Login</p></Link>
           </div>

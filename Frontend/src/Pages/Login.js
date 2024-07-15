@@ -6,6 +6,7 @@ import toast from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 export default function Login() {
+  const [loading, setLoading] = useState(false);
   const navigate=useNavigate()
   const {
     register,
@@ -15,31 +16,34 @@ export default function Login() {
 
 
  
-const submitHandler = (data) => {
+  const submitHandler = (data) => {
+    setLoading(true);
     axios.post("https://quizapp-g98o.onrender.com/login", data).then((res) => {
-      console.log(res);
-      if (res.data === "notexist") {
-        toast.error("You dont have an account");
-        navigate("/signup");
-      } else {
-        toast.success("Login Successfully");
-        const userData = JSON.parse(res.config.data);
-        localStorage.setItem("userSignupData", JSON.stringify(userData));
-        const intendedDestination = localStorage.getItem('intendedDestination');
-        
-        if (intendedDestination) {
-          const totalScore = localStorage.getItem('totalScore');
-          const maxScore = localStorage.getItem('maxScore');
-          localStorage.removeItem('intendedDestination');
-          navigate('/score', { state: { totalScore, maxScore } });
+        setLoading(false);
+        console.log(res);
+        if (res.data === "notexist") {
+          toast.error("You don't have an account");
+          navigate("/signup");
         } else {
-          navigate("/");
+          toast.success("Login Successfully");
+          const userData = JSON.parse(res.config.data);
+          localStorage.setItem("userSignupData", JSON.stringify(userData));
+          const intendedDestination = localStorage.getItem('intendedDestination');
+          
+          if (intendedDestination) {
+            const totalScore = localStorage.getItem('totalScore');
+            const maxScore = localStorage.getItem('maxScore');
+            localStorage.removeItem('intendedDestination');
+            navigate('/score', { state: { totalScore, maxScore } });
+          } else {
+            navigate("/");
+          }
         }
-      }
-    }).catch((error) => {
-      console.error("There was an error during signup!", error);
-      toast.error("Signup failed. Please try again.");
-    });
+      }).catch((error) => {
+        setLoading(false);
+        console.error("There was an error during login!", error);
+        toast.error("Login failed. Please try again.");
+      });
   };
   return (
     <div className="min-h-screen flex flex-col">
@@ -84,8 +88,9 @@ const submitHandler = (data) => {
               <button
                 type="submit"
                 className="w-full py-2 bg-slate-800 text-gray-200 rounded-md hover:bg-slate-700 transition duration-300"
+                disabled={loading}
               >
-                Login
+                {loading ? 'Loading...' : 'Login'}
               </button>
             </div>
             <div className="text-gray-900 flex justify-center items-center mt-5">
