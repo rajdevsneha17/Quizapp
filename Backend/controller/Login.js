@@ -22,10 +22,7 @@ exports.login = async (req, res) => {
                 });
             } else {
                 // Password does not match
-                return res.status(401).json({
-                    success: false,
-                    message: 'Incorrect password'
-                });
+                return res.json("Incorrect")
             }
         } else {
             // User does not exist
