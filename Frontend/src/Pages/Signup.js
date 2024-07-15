@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { useState } from "react";
+
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
