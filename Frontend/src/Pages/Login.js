@@ -13,33 +13,10 @@ export default function Login() {
     formState: { errors }
   } = useForm();
 
-//   const submitHandler = (e) => {
-//     e.preventDefault();
-//     console.log(data);
-//     axios.post("http://localhost:7007/login", data).then((res) => {
-//       if (res.data === "notexist") {
-//         toast.error("Signup First");
-//         navigate("/signup");
-//       } else {
-//         toast.success("Login successfully");
-//         const userData = JSON.parse(res.config.data);
-//         localStorage.setItem("userLoginData", JSON.stringify(userData));
-//         const intendedDestination = localStorage.getItem('intendedDestination');
-//         if (intendedDestination) {
-//           localStorage.removeItem('intendedDestination');
-//           navigate(`/${intendedDestination}`);
-//         } else {
-//           navigate("/");
-//         }
-//       }
-//     }).catch((error) => {
-//       console.error("There was an error logging in!", error);
-//       toast.error("Login failed. Please try again.");
-//     });
-//   };
+
  
 const submitHandler = (data) => {
-    axios.post("http://localhost:7007/signup", data).then((res) => {
+    axios.post("https://quizapp-b.vercel.app/login", data).then((res) => {
       console.log(res);
       if (res.data === "notexist") {
         toast.error("You dont have an account");
