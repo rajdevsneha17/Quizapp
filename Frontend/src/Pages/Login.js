@@ -21,12 +21,7 @@ const submitHandler = (data) => {
       if (res.data === "notexist") {
         toast.error("You dont have an account");
         navigate("/signup");
-      }
-      else if (res.data === "Incorrect") {
-        toast.error("Incorrect Password");
-        
-      }
-      else {
+      } else {
         toast.success("Login Successfully");
         const userData = JSON.parse(res.config.data);
         localStorage.setItem("userSignupData", JSON.stringify(userData));
