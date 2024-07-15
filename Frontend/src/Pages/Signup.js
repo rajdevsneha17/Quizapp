@@ -14,7 +14,7 @@ export default function Signup() {
   } = useForm();
 
   const submitHandler = (data) => {
-    axios.post("https://quizapp-b.vercel.app/signup", data).then((res) => {
+    axios.post("https://quizapp-g98o.onrender.com/signup", data).then((res) => {
       console.log(res);
       if (res.data === "exist") {
         toast.error("You already have an account");

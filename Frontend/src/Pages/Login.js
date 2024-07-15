@@ -16,7 +16,7 @@ export default function Login() {
 
  
 const submitHandler = (data) => {
-    axios.post("https://quizapp-b.vercel.app/login", data).then((res) => {
+    axios.post("https://quizapp-g98o.onrender.com/login", data).then((res) => {
       console.log(res);
       if (res.data === "notexist") {
         toast.error("You dont have an account");
